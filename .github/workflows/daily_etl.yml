@@ -1,0 +1,52 @@
+name: Daily ETL Pipeline
+
+on:
+  schedule:
+    - cron: '0 10 * * *'  # 10:00 UTC = 07:00 AM Chile
+  workflow_dispatch:         # Permite ejecución manual
+
+jobs:
+  run-legislativo:
+    name: ETL Legislativo (Congreso Nacional)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --workspace=packages/etl
+
+      - name: Run Legislative ETL Pipeline
+        run: npm run etl:legislativo --workspace=packages/etl
+        env:
+          LEGISLATIVO_URL: ${{ secrets.LEGISLATIVO_URL }}
+          LEGISLATIVO_SERVICE_ROLE_KEY: ${{ secrets.LEGISLATIVO_SERVICE_ROLE_KEY }}
+
+  run-mercadopublico:
+    name: ETL Mercado Público (Compras Públicas)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --workspace=packages/etl
+
+      - name: Run MercadoPublico ETL Pipeline
+        run: npm run etl:mercadopublico --workspace=packages/etl
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          MERCADOPUBLICO_TICKET: ${{ secrets.MERCADOPUBLICO_TICKET }}

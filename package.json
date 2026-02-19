@@ -1,0 +1,15 @@
+{
+  "name": "web-datopublico",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=apps/web",
+    "build": "npm run build --workspace=apps/web",
+    "etl:legislativo": "npm run etl:legislativo --workspace=packages/etl",
+    "etl:mercadopublico": "npm run etl:mercadopublico --workspace=packages/etl",
+    "etl:discovery": "npm run etl:discovery --workspace=packages/etl"
+  }
+}

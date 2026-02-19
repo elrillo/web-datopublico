@@ -1,0 +1,28 @@
+{
+  "name": "@datopublico/etl",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "etl:legislativo": "tsx src/orchestrators/run-all.ts",
+    "etl:mercadopublico": "tsx src/orchestrators/run-mp.ts",
+    "etl:discovery": "tsx src/etls/legislativo/discovery.ts",
+    "etl:diputados": "tsx src/etls/legislativo/diputados.ts",
+    "etl:senado": "tsx src/etls/legislativo/senado.ts",
+    "etl:proyectos": "tsx src/etls/legislativo/proyectos.ts",
+    "etl:historical": "tsx src/etls/legislativo/historical-details.ts",
+    "etl:senado-details": "tsx src/etls/legislativo/senado-details.ts",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.84.0",
+    "fast-xml-parser": "^4.5.0",
+    "dotenv": "^16.4.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0",
+    "vitest": "^3.0.0"
+  }
+}
