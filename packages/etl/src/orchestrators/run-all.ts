@@ -13,12 +13,11 @@
 import { validateEnv } from '../config/env.js';
 import { createLogger, sleep } from '../lib/index.js';
 import { runDiscovery } from '../etls/legislativo/discovery.js';
-// Los demás ETLs se importarán cuando se migren:
-// import { runProyectos } from '../etls/legislativo/proyectos.js';
-// import { runDiputados } from '../etls/legislativo/diputados.js';
-// import { runSenado } from '../etls/legislativo/senado.js';
-// import { runHistoricalDetails } from '../etls/legislativo/historical-details.js';
-// import { runSenadoDetails } from '../etls/legislativo/senado-details.js';
+import { runProyectos } from '../etls/legislativo/proyectos.js';
+import { runDiputados } from '../etls/legislativo/diputados.js';
+import { runSenado } from '../etls/legislativo/senado.js';
+import { runHistoricalDetails } from '../etls/legislativo/historical-details.js';
+import { runSenadoDetails } from '../etls/legislativo/senado-details.js';
 
 const log = createLogger('Orchestrator');
 const DELAY_BETWEEN_ETLS = 10_000; // 10 segundos
@@ -30,12 +29,11 @@ interface EtlStep {
 
 const steps: EtlStep[] = [
   { name: 'Discovery (Boletines)', fn: runDiscovery },
-  // Fase 2: descomentar cuando se migren
-  // { name: 'Proyectos de Ley', fn: runProyectos },
-  // { name: 'Diputados', fn: runDiputados },
-  // { name: 'Senadores', fn: runSenado },
-  // { name: 'Votaciones Cámara (Detalle)', fn: runHistoricalDetails },
-  // { name: 'Votaciones Senado (Detalle)', fn: runSenadoDetails },
+  { name: 'Proyectos de Ley', fn: runProyectos },
+  { name: 'Diputados', fn: runDiputados },
+  { name: 'Senadores', fn: runSenado },
+  { name: 'Votaciones Cámara (Detalle)', fn: runHistoricalDetails },
+  { name: 'Votaciones Senado (Detalle)', fn: runSenadoDetails },
 ];
 
 async function main(): Promise<void> {

@@ -9,9 +9,8 @@
 
 import { validateEnv } from '../config/env.js';
 import { createLogger, sleep } from '../lib/index.js';
-// Fase 2: descomentar cuando se migren
-// import { runOrdenes } from '../etls/mercadopublico/ordenes.js';
-// import { runLicitaciones } from '../etls/mercadopublico/licitaciones.js';
+import { runOrdenes } from '../etls/mercadopublico/ordenes.js';
+import { runLicitaciones } from '../etls/mercadopublico/licitaciones.js';
 
 const log = createLogger('Orchestrator-MP');
 const DELAY_BETWEEN_ETLS = 10_000;
@@ -22,9 +21,8 @@ interface EtlStep {
 }
 
 const steps: EtlStep[] = [
-  // Fase 2: descomentar cuando se migren
-  // { name: 'Órdenes de Compra', fn: runOrdenes },
-  // { name: 'Licitaciones', fn: runLicitaciones },
+  { name: 'Órdenes de Compra', fn: runOrdenes },
+  { name: 'Licitaciones', fn: runLicitaciones },
 ];
 
 async function main(): Promise<void> {

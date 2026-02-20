@@ -12,6 +12,8 @@
     "etl:proyectos": "tsx src/etls/legislativo/proyectos.ts",
     "etl:historical": "tsx src/etls/legislativo/historical-details.ts",
     "etl:senado-details": "tsx src/etls/legislativo/senado-details.ts",
+    "etl:ordenes": "tsx src/etls/mercadopublico/ordenes.ts",
+    "etl:licitaciones": "tsx src/etls/mercadopublico/licitaciones.ts",
     "test": "vitest run",
     "test:watch": "vitest"
   },
